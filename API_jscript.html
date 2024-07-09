@@ -33,7 +33,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>                        
             </button>
-            <a class="navbar-brand" href="#">WebSiteName</a>
+            <a class="navbar-brand" href="#">NEW Deals</a>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -41,14 +41,14 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Beauty</a></li>
-                  <li><a href="#">Fragnance</a></li>
-                  <li><a href="#">Furniture</a></li>
-                  <li><a href="#">Groceries</a></li>
+                  <li><button onclick="category('beauty')">beauty</button></li>
+                  <li><button onclick="category('fragrances')">Fragnance</button></li>
+                  <li><button onclick="category('furniture')">Furniture</button></li>
+                  <li><button onclick="category('groceries')">Groceries</button></li>
                 </ul>
-              </li>
+              </li>products
              
-            </ul>
+            </ul>product
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
               <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -56,12 +56,17 @@
           </div>
         </div>
       </nav>
-        
+      
+
+
     <h1>Product List</h1>
     <div id="products"></div>
     <div id="single-product" style="display:none;">
         <button onclick="backToList()">Back to List</button>
         <div id="product-details"></div>
+    </div>
+    <div id="category" style="display:none;" class="row">
+
     </div>
 
     <script>
@@ -111,7 +116,41 @@
         function backToList() {
             document.getElementById('single-product').style.display = 'none';
             document.getElementById('products').style.display = 'block';
+            document.getElementById('cat').style.display='none';
+            document.getElementById('category').style.display='none'
         }
+        function category(prodts){
+          fetch('https://dummyjson.com/products')
+          .then(res => res.json())
+          .then(data => {
+            document.getElementById('products').style.display='none';
+            document.getElementById('category').innerHTML=`<button onclick="backToList()" id="cat">backToList</button>`
+            document.getElementById('category').style.display='block'
+
+            const productsContainer=document.getElementById('category');
+            data.products.forEach(product =>{products
+              console.log(product.category);
+              if (product.category==prodts){
+                console.log(prodts)
+
+
+                const productElement=document.createElement('div');
+                productElement.className='product col-lg-12';
+
+                productElement.innerHTML= `
+                <img src="${product.thumbnail}" alt="${product.title}">
+                <h2>${product.title}</h2>
+                <p>price:$${product.price}</p>
+                <p>${product.description}</p>
+                <button onclick="viewproduct"(${product.id})"view product"</button>
+                  `;
+                  productsContainer.appendChild(productElement);
+              }
+                                               
+        });
+      })
+      .catch(error =>console.error('error fetching products:',error));
+    }
     </script>
 </body>
 </html>
