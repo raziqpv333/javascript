@@ -45,10 +45,10 @@
                   <li><button onclick="category('fragrances')">Fragnance</button></li>
                   <li><button onclick="category('furniture')">Furniture</button></li>
                   <li><button onclick="category('groceries')">Groceries</button></li> -->
-                  <li><a href="API_jscriptpage2.html?category=beauty">beauty</a></li>
-                  <li><a href="API_jscriptpage2.html?category=fragrances">Fragance</a></li>
-                  <li><a href="API_jscriptpage2.html?category=furniture">Furniture</a></li>
-                  <li><a href="API_jscriptpage2.html?category=groceries">Groceries</a></li>
+                  <li><a href="API_jscriptpage2.html?category=beauty"></a></li>
+                  <li><a href="API_jscriptpage2.html?category=Fragnance"></a></li>
+                  <li><a href="API_jscriptpage2.html?category=Furniture"></a></li>
+                  <li><a href="API_jscriptpage2.html?category=Groceries"></a></li>
                 </ul>
               </li>products
              
@@ -123,7 +123,12 @@
             document.getElementById('cat').style.display='none';
             document.getElementById('category').style.display='none'
         }
-        function category(prodts){
+        function category(){
+            let url =window.location.href;
+            var urlParams =new URLSearchParams(url.split("?")[1]);
+            var prodts = urlParams.get("category");
+            console.log(prodts);
+
           fetch('https://dummyjson.com/products')
           .then(res => res.json())
           .then(data => {
@@ -155,6 +160,7 @@
       })
       .catch(error =>console.error('error fetching products:',error));
     }
+    category()
     </script>
 </body>
 </html>
